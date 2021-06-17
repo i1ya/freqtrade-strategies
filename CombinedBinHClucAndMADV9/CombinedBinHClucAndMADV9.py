@@ -25,6 +25,12 @@ from freqtrade.strategy import merge_informative_pair, CategoricalParameter, Dec
 ##        -  new stoploss function, preventing from big fall                                             ##
 ##                                                                                                       ##
 ###########################################################################################################
+##      How to use:                                                                                      ##
+##        - no need to HyperOpt                                                                          ##
+##        - before use it check the docs -                                                               ##
+##          https://www.freqtrade.io/en/stable/configuration/#market-order-pricing                       ##
+##                                                                                                       ##
+###########################################################################################################
 ##                 GENERAL RECOMMENDATIONS                                                               ##
 ##                                                                                                       ##
 ##   For optimal performance, suggested to use between 2 and 4 open trades, with unlimited stake.        ##
@@ -160,19 +166,25 @@ class CombinedBinHClucAndMADV9(IStrategy):
         if (current_profit > 0):
             return 0.99
         else:
-            trade_time_60 = current_time - timedelta(minutes=50)
+            trade_time_50 = current_time - timedelta(minutes=50)
 
             # Trade open more then 60 minutes. For this strategy it's means -> loss
             # Let's try to minimize the loss
 
-            if (trade_time_60 > trade.open_date_utc):
-                number_of_candle_shift = int((trade_time_60 - trade.open_date_utc).total_seconds() / 300)
+            if (trade_time_50 > trade.open_date_utc):
 
-                dataframe, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
-                candle = dataframe.iloc[-number_of_candle_shift].squeeze()
+                try:
+                    number_of_candle_shift = int((trade_time_50 - trade.open_date_utc).total_seconds() / 300)
+                    dataframe, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
+                    candle = dataframe.iloc[-number_of_candle_shift].squeeze()
 
-                # Are we still sinking?
-                if current_rate * 1.015 < candle['open']:
+                    # Are we still sinking?
+                    if current_rate * 1.015 < candle['open']:
+                        return 0.01
+
+                except IndexError as error:
+
+                    # Whoops, set stoploss at 5%
                     return 0.01
 
         return 0.99
