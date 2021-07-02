@@ -1,0 +1,45 @@
+A few words about strategy BigZ04
+
+1. You can use VolumePairList:
+
+"pair_whitelist": [
+        ],
+        "pair_blacklist": [
+            "BUSD/USDT",
+            "EPS/USDT",
+            ".*BEAR/USDT",
+            ".*BULL/USDT",
+            ".*UP/USDT",
+            ".*DOWN/USDT",
+            ".*HEDGE/USDT",
+            "USDC/USDT",
+            "EUR/USDT",
+            "GBP/USDT",
+            "TUSD/USDT",
+            "AVA/USDT",
+            "XVS/USDT"
+        ]
+    },
+
+    "pairlists": [
+            {
+                    "method": "VolumePairList",
+                    "number_assets": 70,
+                    "sort_key": "quoteVolume",
+                    "refresh_period": 3600
+            },
+            {
+                "method": "VolatilityFilter",
+                "lookback_days": 5,
+                "min_volatility": 0.02,
+                "max_volatility": 0.75,
+                "refresh_period": 86400
+            },
+            {"method": "PerformanceFilter"}
+    ],
+
+2. By default BigZ04 use a market order. So, you can switch to the limit or configure bid and ask side as docs says - https://www.freqtrade.io/en/stable/configuration/#market-order-pricing
+
+3. No need to HyperOpt
+
+Have a nice day!
