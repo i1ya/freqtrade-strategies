@@ -5,7 +5,7 @@ This is repo for my freqtrade-strategies. My name is Ilya Zelenchuk, I'm a lectu
 
 # FAQ
 
- **Q**: What is the difference between them?  
+ **Q**: What is the difference between strategies?  
  **A**: CombinedBinHClucAndMADV using optimized stratic pairlist. BigZ using dynamic (based on volume) pairlist
 
  **Q**: I run strategy for one day. But did not trade. Is bot running Ok?  
