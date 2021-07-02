@@ -1,7 +1,7 @@
 # My freqtrade-strategies
 
 Hi there!
-This is repo for freqtrade-strategies. I'm not a trader or financial analytics and my strategies are not a financial advise.
+This is repo for my freqtrade-strategies. My name is Ilya Zelenchuk, I'm a lecturer at the SPbU university (https://english.spbu.ru/). These strategiest is my hobbie and I'm not a trader or financial analytics and my strategies are not a financial advise. 
 
 # FAQ
 
